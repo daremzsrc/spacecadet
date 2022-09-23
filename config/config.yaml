@@ -1,15 +1,16 @@
 #config_version=5
 
 switches:
-  s_left_flipper:
-    number: 0-2
-    tags: left_flipper
   s_right_flipper:
     number: 0-1
     tags: right_flipper
-  s_3:
+  s_pop_bumper:
+    number: 0-2
+    events_when_activated: ev_pop_bumper_triggered
+    tags: pop_bumper1
+  s_left_flipper:
     number: 0-3
-    tags: item_3
+    tags: left_flipper
   s_8:
     number: 0-8
     tags: item_8
@@ -40,25 +41,29 @@ switches:
   s_25:
     number: 0-25
     tags: item_25
-  s_26:
+  s_play_active:
     number: 0-26
-    tags: item_26
-  s_27:
+    tags: playfield_active 
+  s_start:
     number: 0-27
-    tags: item_27
+    tags: start
 
 coils:
   c_flipper_left_main:
-    number: 0-9  # again, these numbers will probably be different for you
+    number: 0-15  # again, these numbers will probably be different for you
     default_hold_power: 0.125
   c_flipper_right_main:
     number: 0-8
     default_hold_power: 0.125
+  c_pop_bumper:
+    number: 0-9
+    default_hold_power: 0.125
 
-playfields:
-  playfield:
-    tags: default
-    default_source_device: None  # use None in steps before 8
+autofire_coils:
+  ac_popbumper:
+    coil: c_pop_bumper
+    switch: s_pop_bumper
+    enable_events: machine_reset_phase_3
 
 flippers:
   left_flipper:
@@ -70,10 +75,36 @@ flippers:
     activation_switch: s_right_flipper
     enable_events: machine_reset_phase_3
 
+playfields:
+  playfield:
+    tags: default
+    default_source_device: None  # use None in steps before 8
+
+displays:
+  window:
+    width: 800
+    height: 600
+
+lights:
+  l_pop_bumper:
+    number: 0-1
+    subtype: matrix
+    
+light_player:
+  ev_pop_bumper_triggered:
+    l_pop_bumper:
+      fade: 1000ms
+    
+
 hardware:
   platform: opp
 
+keyboard:
+  s:
+    switch: s_start
+  q:
+    switch: s_play_active
+        
 opp:
   ports: COM6
   debug: true
-  poll_hz: 50
