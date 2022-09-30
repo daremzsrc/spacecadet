@@ -2,61 +2,64 @@
 
 switches:
   s_right_flipper:
-    number: 0-1
+    number: 0-0-1
     tags: right_flipper
   s_pop_bumper:
-    number: 0-2
-    events_when_activated: ev_pop_bumper_triggered
+    number: 0-0-2
+    events_when_activated: ev_pop_bumper_on
+    events_when_deactivated: ev_pop_bumper_off
     tags: pop_bumper1
   s_left_flipper:
-    number: 0-3
+    number: 0-0-3
     tags: left_flipper
   s_8:
-    number: 0-8
+    number: 0-0-8
     tags: item_8
   s_9:
-    number: 0-9
+    number: 0-0-9
     tags: item_9
   s_10:
-    number: 0-10
+    number: 0-0-10
     tags: item_10
   s_11:
-    number: 0-11
+    number: 0-0-11
     tags: item_11
   s_16:
-    number: 0-16
+    number: 0-0-16
     tags: item_16
   s_17:
-    number: 0-17
+    number: 0-0-17
     tags: item_17
   s_18:
-    number: 0-18
+    number: 0-0-18
     tags: item_18
   s_19:
-    number: 0-19
+    number: 0-0-19
     tags: item_19
   s_24:
-    number: 0-24
+    number: 0-0-24
     tags: item_24
   s_25:
-    number: 0-25
+    number: 0-0-25
     tags: item_25
+  s_2_19:
+    number: 2-0-19
   s_play_active:
-    number: 0-26
+    number: 0-0-26
     tags: playfield_active 
   s_start:
-    number: 0-27
+    number: 0-0-27
     tags: start
 
 coils:
   c_flipper_left_main:
-    number: 0-15  # again, these numbers will probably be different for you
+    number: 0-0-15  # again, these numbers will probably be different for you
     default_hold_power: 0.125
   c_flipper_right_main:
-    number: 0-8
+    number: 0-0-8
     default_hold_power: 0.125
   c_pop_bumper:
-    number: 0-9
+    number: 0-0-9
     default_hold_power: 0.125
 
 autofire_coils:
@@ -87,18 +90,22 @@ displays:
 
 lights:
   l_pop_bumper:
-    number: 0-1
+    number: 2-0-0
     subtype: matrix
     
 light_player:
-  ev_pop_bumper_triggered:
+  ev_pop_bumper_on:
     l_pop_bumper:
-      fade: 1000ms
-    
+      color: white
+      fade: 0ms
+  ev_pop_bumper_off:
+    l_pop_bumper:
+      color: black
+      fade: 100ms
 
 hardware:
   platform: opp
-
+  
 keyboard:
   s:
     switch: s_start
@@ -106,5 +113,5 @@ keyboard:
     switch: s_play_active
         
 opp:
-  ports: COM6
+  ports: COM6,COM7
   debug: true
